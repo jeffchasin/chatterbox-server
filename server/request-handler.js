@@ -66,14 +66,16 @@ var requestHandler = function (request, response) {
     } else if (request.method === 'POST') {
       statusCode = 200;
 
-      let body = [];
-      request.on('data', (chunk) => {
-        body.push(chunk);
-        console.log('chunk: ', chunk);
-      }).on('end', () => {
-        // body = Buffer.concat(body).toString();
-        //console.log('buffer: ', Buffer);
-      });
+      // TODO:
+      // DOES NOT WORK:
+      // let body = [];
+      // request.on('data', (chunk) => {
+      //   body.push(chunk);
+      //   console.log('chunk: ', chunk);
+      // }).on('end', () => {
+      //   // body = Buffer.concat(body).toString();
+      //   //console.log('buffer: ', Buffer);
+      // });
 
       // messages.results.push(request.body);
 
