@@ -29,6 +29,14 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 
+var message = {
+  results: [
+    {
+      title: 'Example',
+      body: 'Good morning'
+    }]
+};
+
 var requestHandler = function(request, response) {
 
 
