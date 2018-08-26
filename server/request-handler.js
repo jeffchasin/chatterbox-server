@@ -1,5 +1,7 @@
-/*************************************************************
 
+const querystring = require('querystring');
+
+/*************************************************************
 You should implement your request handler function in this file.
 
 requestHandler is already getting passed to http.createServer()
@@ -29,24 +31,47 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 
-var message = {
-  results: [
-    {
-      title: 'Example',
-      body: 'Good morning'
-    }]
+var messages = {
+  results: []
 };
 
 var requestHandler = function(request, response) {
 
+  if (request.url === '/classes/messages' && request.method === 'GET') {
 
-  console.log('Serving request type ' + request.method + ' for url ' + request.url);
+    // The outgoing status.
+    var statusCode = 200;
 
-  // The outgoing status.
-  var statusCode = 200;
+    response.writeHead(statusCode, defaultCorsHeaders);
 
-  response.writeHead(statusCode, defaultCorsHeaders);
-  response.end('Test');
+    response.end(JSON.stringify(messages));
+  }
+
+  if (request.url === '/classes/messages' && request.method === 'POST') {
+    // console.log('Post has been received')
+    var rawData = '';
+
+    request.on('data', (data) => {
+      //   console.log('data has been fired', data)
+      rawData += data;
+
+
+    }).on('end', () => {
+
+      messages.results.push(rawData);
+
+      var statusCode = 201;
+
+      response.writeHead(statusCode, defaultCorsHeaders);
+      console.log(messages.results);
+      response.end(JSON.stringify(messages));
+
+    });
+  } else {
+    var statusCode = 404;
+    response.writeHead(statusCode, defaultCorsHeaders);
+    response.end(JSON.stringify(messages));
+  }
 };
 
 module.exports = {

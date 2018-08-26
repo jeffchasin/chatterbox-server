@@ -1,5 +1,3 @@
-curl -X POST \
-  http://127.0.0.1:3000/classes/messages \
-  -H 'accept: application/json' \
-  -H 'x-parse-application-id' \
-  -F '{"username":"Jono","text":"Do my best!"}'
+POST http://127.0.0.1:3000/classes/messages
+
+'{username: "Philipp", text: "I agree"}'
