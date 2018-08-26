@@ -29,16 +29,8 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 
-<<<<<<< HEAD
-var requestHandler = function(request, response) {
-
-
-
-
-=======
 var requestHandler = function (request, response) {
   console.log('in requestHandler');
->>>>>>> 78232113e0497f394aa9ac4c5d99637daaf9d802
   // Request and Response come from node's http module.
   //
   // They include information about both the incoming request, such as
