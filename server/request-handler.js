@@ -66,69 +66,23 @@ var requestHandler = function (request, response) {
     } else if (request.method === 'POST') {
       statusCode = 200;
 
-      // TODO:
-      // DOES NOT WORK:
-      // let body = [];
-      // request.on('data', (chunk) => {
-      //   body.push(chunk);
-      //   console.log('chunk: ', chunk);
-      // }).on('end', () => {
-      //   // body = Buffer.concat(body).toString();
-      //   //console.log('buffer: ', Buffer);
-      // });
+      var rawData = '';
 
-      // messages.results.push(request.body);
+      request.on('data', (data) => {
+        rawData += data;
+      }).on('end', () => {
+        messages.results.push(rawData);
+        response.writeHead(statusCode, headers);
+        response.end(JSON.stringify(messages));
+        console.log('rawData: ', rawData);
+        console.log('messages', messages);
+      });
 
 
-      response.writeHead(statusCode, headers);
-      response.end(JSON.stringify(messages));
+      console.log('Serving request type ' + request.method + ' for url ' + request.url);
     }
 
-
-
-    // check type of request
-    // if (request.method === 'GET') {
-    //   //    Should send back parsable stringified JSON
-    //   //    Should send back an object
-    //   //    Should send an object containing a `results` array
-    //   //    Should respond with messages that were previously posted
-    //   const { headers, method, url } = request;
-
-
-    // Tell the client we are sending them plain text.
-    //
-    // You will need to change this if you are sending something
-    // other than plain text, like JSON or HTML.
-
-    // headers['Content-Type'] = 'text/plain';
-
-
-
-    //     const responseBody = { headers, method, url, messages };
-
-    //     console.log('responseBody:', responseBody);
-
-    //     // response.write(JSON.stringify(responseBody));
-    //     // response.end();
-    //     // Note: the 2 lines above could be replaced with this next one:
-    //     response.end(JSON.stringify(responseBody));
-
-    // Make sure to always call response.end() - Node may not send
-    // anything back to the client until you do. The string you pass to
-    // response.end() will be the body of the response - i.e. what shows
-    // up in the browser.
-    //
-    // Calling .end "flushes" the response's internal buffer, forcing
-    // node to actually send all the data over to the client.
-    // response.end('Hello, World!');
-    // ----------------------------------------------------------------------
   }
-
-  // }
-  // }
-
-
-  console.log('Serving request type ' + request.method + ' for url ' + request.url);
 };
 
 module.exports = {
