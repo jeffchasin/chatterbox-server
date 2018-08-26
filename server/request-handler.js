@@ -30,41 +30,23 @@ var defaultCorsHeaders = {
 };
 
 var requestHandler = function (request, response) {
-  console.log('in requestHandler');
-  // Request and Response come from node's http module.
-  //
-  // They include information about both the incoming request, such as
-  // headers and URL, and about the outgoing response, such as its status
-  // and content.
-  //
-  // Documentation for both request and response can be found in the HTTP section at
-  // http://nodejs.org/documentation/api/
 
-  // Do some basic logging.
-  //
-  // Adding more logging to your server can be an easy way to get passive
-  // debugging help, but you should always be careful about leaving stray
-  // console.logs in your code.
-
-  // The outgoing status.
   var statusCode;
   var messages = {
-    results: [{
-      username: 'Jono',
-      text: 'Do my bidding!'
-    }]
+    results: []
   };
 
-  // See the note below about CORS headers.
   var headers = defaultCorsHeaders;
 
   if (request.url === '/classes/messages') {
+
     if (request.method === 'GET') {
       statusCode = 200;
       response.writeHead(statusCode, headers);
       response.end(JSON.stringify(messages));
+
     } else if (request.method === 'POST') {
-      statusCode = 200;
+      statusCode = 201;
 
       var rawData = '';
 
@@ -82,6 +64,10 @@ var requestHandler = function (request, response) {
       console.log('Serving request type ' + request.method + ' for url ' + request.url);
     }
 
+  } else {
+    statusCode = 404;
+    response.writeHead(statusCode, headers);
+    response.end(JSON.stringify(messages));
   }
 };
 
