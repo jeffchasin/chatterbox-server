@@ -35,12 +35,15 @@ var messages = {
   results: []
 };
 
+var statusCode = 200;
+
 var requestHandler = function(request, response) {
 
   if (request.url === '/classes/messages' && request.method === 'GET') {
 
     // The outgoing status.
-    var statusCode = 200;
+
+    statusCode = 200;
 
     response.writeHead(statusCode, defaultCorsHeaders);
 
@@ -52,23 +55,25 @@ var requestHandler = function(request, response) {
     var rawData = '';
 
     request.on('data', (data) => {
-      //   console.log('data has been fired', data)
-      rawData += data;
 
+      rawData += data;
 
     }).on('end', () => {
 
+    //  var goodData = `'${rawData.slice(1, rawData.length -1)}'`
+
+
       messages.results.push(rawData);
 
-      var statusCode = 201;
+      statusCode = 201;
 
       response.writeHead(statusCode, defaultCorsHeaders);
-      console.log(messages.results);
+
       response.end(JSON.stringify(messages));
 
     });
   } else {
-    var statusCode = 404;
+    statusCode = 404;
     response.writeHead(statusCode, defaultCorsHeaders);
     response.end(JSON.stringify(messages));
   }
