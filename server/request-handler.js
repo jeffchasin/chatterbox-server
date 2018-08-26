@@ -29,12 +29,13 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 
+var messages = {
+  results: []
+};
+
 var requestHandler = function (request, response) {
 
   var statusCode;
-  var messages = {
-    results: []
-  };
 
   var headers = defaultCorsHeaders;
 
@@ -53,7 +54,7 @@ var requestHandler = function (request, response) {
       request.on('data', (data) => {
         rawData += data;
       }).on('end', () => {
-        messages.results.push(rawData);
+        messages.results.push(JSON.parse(rawData));
         response.writeHead(statusCode, headers);
         response.end(JSON.stringify(messages));
         console.log('rawData: ', rawData);
