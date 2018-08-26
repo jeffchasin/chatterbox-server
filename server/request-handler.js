@@ -30,6 +30,10 @@ var defaultCorsHeaders = {
 };
 
 var requestHandler = function(request, response) {
+
+
+
+
   // Request and Response come from node's http module.
   //
   // They include information about both the incoming request, such as
