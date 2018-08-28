@@ -32,7 +32,7 @@ var defaultCorsHeaders = {
 };
 
 var messages = {
-  results: []
+  results: [{ username: 'Jono', text: 'Do my bidding!' }]
 };
 
 var statusCode;
@@ -68,9 +68,6 @@ var requestHandler = function(request, response) {
 
       response.end(JSON.stringify(messages));
 
-      console.log(statusCode);
-
-
     } else if (request.method === 'POST') {
 
       var rawData = '';
@@ -81,7 +78,7 @@ var requestHandler = function(request, response) {
 
       }).on('end', () => {
 
-        messages.results.push(JSON.parse(rawData));
+        messages.results.unshift(JSON.parse(rawData));
 
         statusCode = 201;
 
