@@ -65,8 +65,6 @@ var requestHandler = function (request, response) {
         }
       );
       response.end();
-      // ?????????
-      // return (response.end());
     }
 
 
@@ -86,7 +84,7 @@ var requestHandler = function (request, response) {
 
         var parsedData = JSON.parse(rawData);
         parsedData.objectId = uuidv4();
-        messages.results.push(parsedData);
+        messages.results.unshift(parsedData);
 
         console.log('parsedData: ', parsedData);
 
