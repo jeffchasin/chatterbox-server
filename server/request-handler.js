@@ -41,6 +41,23 @@ var requestHandler = function(request, response) {
 
   if (request.url === '/classes/messages') {
 
+
+    if (request.method.toUpperCase() === 'OPTIONS') {
+
+      response.writeHead(
+        '200',
+        'No Content',
+        {
+          'access-control-allow-origin': '*',
+          'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'access-control-allow-headers': 'content-type, accept',
+          'access-control-max-age': 10, // Seconds.
+          'content-length': 0
+        }
+      );
+      response.end();
+    }
+
     if (request.method === 'GET') {
 
     // The outgoing status.
