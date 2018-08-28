@@ -1,3 +1,5 @@
+const uuidv4 = require('uuid/v4');
+// uuidv4(); // ⇨ '3a017fc5-4f50-4db9-b0ce-4547ba0a1bfd'
 /*************************************************************
 
 You should implement your request handler function in this file.
@@ -32,7 +34,9 @@ var defaultCorsHeaders = {
 var messages = {
   results: [{
     username: 'Jono',
-    text: 'Do my bidding!'
+    text: 'Do my bidding!',
+    roomname: 'lobby',
+    objectId: 'c4094d8d-e3e0-47e7-a280-3aa4b590c6e9'
   }]
 };
 
@@ -46,7 +50,6 @@ var requestHandler = function (request, response) {
   headers['Content-Type'] = 'application/json';
 
   if (request.url === '/classes/messages') {
-    // var origin = (request.headers.origin || '*');
 
     if (request.method.toUpperCase() === 'OPTIONS') {
 
@@ -80,7 +83,13 @@ var requestHandler = function (request, response) {
       request.on('data', (data) => {
         rawData += data;
       }).on('end', () => {
-        messages.results.push(JSON.parse(rawData));
+
+        var parsedData = JSON.parse(rawData);
+        parsedData.objectId = uuidv4();
+        messages.results.push(parsedData);
+
+        console.log('parsedData: ', parsedData);
+
         response.writeHead(statusCode, headers);
         response.end(JSON.stringify(messages));
         console.log('rawData: ', rawData);
