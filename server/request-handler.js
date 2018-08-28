@@ -1,3 +1,5 @@
+const uuidv4 = require('uuid/v4');
+// uuidv4(); // ⇨ '3a017fc5-4f50-4db9-b0ce-4547ba0a1bfd'
 /*************************************************************
 
 You should implement your request handler function in this file.
@@ -30,7 +32,12 @@ var defaultCorsHeaders = {
 };
 
 var messages = {
-  results: []
+  results: [{
+    username: 'Jono',
+    text: 'Do my bidding!',
+    roomname: 'lobby',
+    objectId: 'c4094d8d-e3e0-47e7-a280-3aa4b590c6e9'
+  }]
 };
 
 var requestHandler = function (request, response) {
@@ -39,14 +46,34 @@ var requestHandler = function (request, response) {
 
   var headers = defaultCorsHeaders;
 
+  // headers['Content-Type'] = 'text/plain';
+  headers['Content-Type'] = 'application/json';
+
   if (request.url === '/classes/messages') {
 
-    if (request.method === 'GET') {
+    if (request.method.toUpperCase() === 'OPTIONS') {
+
+      response.writeHead(
+        '200',
+        'No Content',
+        {
+          'access-control-allow-origin': '*',
+          'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'access-control-allow-headers': 'content-type, accept',
+          'access-control-max-age': 10, // Seconds.
+          'content-length': 0
+        }
+      );
+      response.end();
+    }
+
+
+    if (request.method.toUpperCase() === 'GET') {
       statusCode = 200;
       response.writeHead(statusCode, headers);
       response.end(JSON.stringify(messages));
 
-    } else if (request.method === 'POST') {
+    } else if (request.method.toUpperCase() === 'POST') {
       statusCode = 201;
 
       var rawData = '';
@@ -54,7 +81,13 @@ var requestHandler = function (request, response) {
       request.on('data', (data) => {
         rawData += data;
       }).on('end', () => {
-        messages.results.push(JSON.parse(rawData));
+
+        var parsedData = JSON.parse(rawData);
+        parsedData.objectId = uuidv4();
+        messages.results.unshift(parsedData);
+
+        console.log('parsedData: ', parsedData);
+
         response.writeHead(statusCode, headers);
         response.end(JSON.stringify(messages));
         console.log('rawData: ', rawData);
