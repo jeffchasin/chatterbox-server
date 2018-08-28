@@ -98,6 +98,8 @@ describe('Node Server Request Listener Function', function() {
     console.log('JSON.parse(res._data).results: ', JSON.parse(res._data).results);
     var messages = JSON.parse(res._data).results;
 
+    
+
     expect(messages.length).to.be.above(0);
 
     console.log('messages[0]: ', messages[0]);
