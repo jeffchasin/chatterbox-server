@@ -100,6 +100,7 @@ describe('Node Server Request Listener Function', function() {
 
     
 
+
     expect(messages.length).to.be.above(0);
 
     console.log('messages[0]: ', messages[0]);
