@@ -35,43 +35,46 @@ var messages = {
   results: []
 };
 
-var statusCode = 200;
+var statusCode;
 
 var requestHandler = function(request, response) {
 
-  if (request.url === '/classes/messages' && request.method === 'GET') {
+  if (request.url === '/classes/messages') {
+
+    if (request.method === 'GET') {
 
     // The outgoing status.
 
-    statusCode = 200;
-
-    response.writeHead(statusCode, defaultCorsHeaders);
-
-    response.end(JSON.stringify(messages));
-  }
-
-  if (request.url === '/classes/messages' && request.method === 'POST') {
-    // console.log('Post has been received')
-    var rawData = '';
-
-    request.on('data', (data) => {
-
-      rawData += data;
-
-    }).on('end', () => {
-
-    //  var goodData = `'${rawData.slice(1, rawData.length -1)}'`
-
-
-      messages.results.push(rawData);
-
-      statusCode = 201;
+      statusCode = 200;
 
       response.writeHead(statusCode, defaultCorsHeaders);
 
       response.end(JSON.stringify(messages));
 
-    });
+      console.log(statusCode);
+
+
+    } else if (request.method === 'POST') {
+
+      var rawData = '';
+
+      request.on('data', (data) => {
+
+        rawData += data;
+
+      }).on('end', () => {
+
+        messages.results.push(JSON.parse(rawData));
+
+        statusCode = 201;
+
+        response.writeHead(statusCode, defaultCorsHeaders);
+
+        response.end(JSON.stringify(messages));
+
+      });
+    } 
+  
   } else {
     statusCode = 404;
     response.writeHead(statusCode, defaultCorsHeaders);
