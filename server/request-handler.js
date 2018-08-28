@@ -30,7 +30,10 @@ var defaultCorsHeaders = {
 };
 
 var messages = {
-  results: []
+  results: [{
+    username: 'Jono',
+    text: 'Do my bidding!'
+  }]
 };
 
 var requestHandler = function (request, response) {
@@ -39,14 +42,37 @@ var requestHandler = function (request, response) {
 
   var headers = defaultCorsHeaders;
 
-  if (request.url === '/classes/messages') {
+  // headers['Content-Type'] = 'text/plain';
+  headers['Content-Type'] = 'application/json';
 
-    if (request.method === 'GET') {
+  if (request.url === '/classes/messages') {
+    // var origin = (request.headers.origin || '*');
+
+    if (request.method.toUpperCase() === 'OPTIONS') {
+
+      response.writeHead(
+        '200',
+        'No Content',
+        {
+          'access-control-allow-origin': '*',
+          'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'access-control-allow-headers': 'content-type, accept',
+          'access-control-max-age': 10, // Seconds.
+          'content-length': 0
+        }
+      );
+      response.end();
+      // ?????????
+      // return (response.end());
+    }
+
+
+    if (request.method.toUpperCase() === 'GET') {
       statusCode = 200;
       response.writeHead(statusCode, headers);
       response.end(JSON.stringify(messages));
 
-    } else if (request.method === 'POST') {
+    } else if (request.method.toUpperCase() === 'POST') {
       statusCode = 201;
 
       var rawData = '';
