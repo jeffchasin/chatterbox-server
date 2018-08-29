@@ -78,7 +78,11 @@ var requestHandler = function(request, response) {
 
       }).on('end', () => {
 
-        messages.results.unshift(JSON.parse(rawData));
+        var parsedData = JSON.parse(rawData);
+
+        parsedData.objectId = uuidv4();
+        
+        messages.results.unshift(parsedData);
 
         statusCode = 201;
 
