@@ -1,1 +1,0 @@
-{"results":[{"username":"bob","text":"test","roomname":"lobby","objectId":"80addbde-b095-4456-9aff-f1742ad44bf9"},{"username":"bob","text":"test","roomname":"lobby","objectId":"59461a27-ab52-4f8e-bb4e-3464a59da68e"}]}
