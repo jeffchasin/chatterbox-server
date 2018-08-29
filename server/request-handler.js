@@ -1,5 +1,6 @@
 
 const uuidv4 = require('uuid/v4');
+const fs = require('fs');
 
 /*************************************************************
 You should implement your request handler function in this file.
@@ -32,7 +33,7 @@ var defaultCorsHeaders = {
 };
 
 var messages = {
-  results: [{ username: 'Jono', text: 'Do my bidding!' }]
+  results: []
 };
 
 var statusCode;
@@ -60,21 +61,21 @@ var requestHandler = function(request, response) {
 
     if (request.method === 'GET') {
 
-    // The outgoing status.
+      var messageFile = fs.readFileSync(__dirname + '/messages.txt', 'utf8');
 
       statusCode = 200;
 
       response.writeHead(statusCode, defaultCorsHeaders);
 
-      response.end(JSON.stringify(messages));
+      response.end(messageFile);
 
     } else if (request.method === 'POST') {
 
-      var rawData = '';
+      var rawData = ''; 
 
-      request.on('data', (data) => {
+      request.on('data', (chunk) => {
 
-        rawData += data;
+        rawData += chunk;
 
       }).on('end', () => {
 
@@ -84,11 +85,15 @@ var requestHandler = function(request, response) {
         
         messages.results.unshift(parsedData);
 
+        fs.writeFileSync(__dirname + '/messages.txt', JSON.stringify(messages));
+
+        var messageFile = fs.readFileSync(__dirname + '/messages.txt', 'utf8');
+
         statusCode = 201;
 
         response.writeHead(statusCode, defaultCorsHeaders);
-
-        response.end(JSON.stringify(messages));
+        
+        response.end(messageFile);
 
       });
     } 
