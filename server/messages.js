@@ -1,1 +1,1 @@
-var message = { username: 'Jono', text: 'Do my bidding!' };
+var results = [{ username: 'Jono', text: 'Do my bidding!' }];

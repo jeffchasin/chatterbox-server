@@ -29,19 +29,17 @@ var defaultCorsHeaders = {
   'access-control-allow-origin': '*',
   'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
   'access-control-allow-headers': 'content-type, accept',
-  'access-control-max-age': 10 // Seconds.
+  'access-control-max-age': 10, // Seconds.
 };
-
-var messages = {
-  results: []
-};
+// var messages = {
+//   results: []
+// };
 
 var statusCode;
 
 var requestHandler = function(request, response) {
 
   if (request.url === '/classes/messages') {
-
 
     if (request.method.toUpperCase() === 'OPTIONS') {
 
@@ -53,7 +51,8 @@ var requestHandler = function(request, response) {
           'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
           'access-control-allow-headers': 'content-type, accept',
           'access-control-max-age': 10, // Seconds.
-          'content-length': 0
+          'content-length': 0,
+          
         }
       );
       response.end();
@@ -67,7 +66,15 @@ var requestHandler = function(request, response) {
 
       response.writeHead(statusCode, defaultCorsHeaders);
 
-      response.end(messageFile);
+      var results = '"results":[' + messageFile + ']';
+
+      var messages = '{' + results + '}';
+
+      var parsedMessages = JSON.parse(messages);
+
+      parsedMessages.results.reverse();
+
+      response.end(JSON.stringify(parsedMessages));
 
     } else if (request.method === 'POST') {
 
@@ -83,17 +90,27 @@ var requestHandler = function(request, response) {
 
         parsedData.objectId = uuidv4();
         
-        messages.results.unshift(parsedData);
-
-        fs.writeFileSync(__dirname + '/messages.txt', JSON.stringify(messages));
-
         var messageFile = fs.readFileSync(__dirname + '/messages.txt', 'utf8');
 
-        statusCode = 201;
+        if (messageFile.length === 0) {
 
-        response.writeHead(statusCode, defaultCorsHeaders);
-        
-        response.end(messageFile);
+          var comma = '';
+
+        } else {
+
+          var comma = ',';
+
+        }
+
+        fs.appendFile(__dirname + '/messages.txt', comma + rawData, function(err, data) {
+
+          statusCode = 201;
+          
+          response.writeHead(statusCode, defaultCorsHeaders);
+          
+          response.end();
+
+        });
 
       });
     } 
