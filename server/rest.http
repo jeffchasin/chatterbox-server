@@ -1,0 +1,4 @@
+POST http://127.0.0.1:3000/classes/messages
+content-type: application/json
+
+'{"username":"Philipp","text":"I agree"}'
