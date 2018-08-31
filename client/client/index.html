@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>chatterbox</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster+Two:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- dependencies -->
+
+  <script src="../lib/jquery.js"></script>
+    <script>
+      // YOU DO NOT NEED TO EDIT THIS CODE
+      if (!/(&|\?)username=/.test(window.location.search)) {
+        var newSearch = window.location.search;
+        if (newSearch !== '' & newSearch !== '?') {
+          newSearch += '&';
+        }
+        newSearch += 'username=' + (prompt('What is your name?') || 'anonymous');
+        window.location.search = newSearch;
+      }
+    </script>
+    <!-- your scripts -->
+    <script src="env/config.js"></script>
+    <script src="scripts/app.js"></script>
+  </head>
+  <body>
+    <div class="header-wrapper">
+        <div logo-wrapper>
+           <img class="logo" src="./images/lemon.svg"/> 
+        </div>
+        <div h1-wrapper>
+            <h1>ChatterBox</h1>
+        </div>
+    </div>
+    <div id="main">
+    
+    <!-- Room -->
+      <h3>Room: </h3>
+
+      <select name="room" id="roomSelect">
+
+        <option>Select a room</option>
+
+      </select>
+
+      <form action="index.html" id="add-room">
+        <input type="text" placeholder="add a new room" id="add-room-input">
+        <input type="submit" value="Add" id="add-room-button">
+      </form>
+
+
+    <!-- Message Form -->
+      <form action="index.html" id="messenger-form">
+
+          <input type="text" class="messenger-input" placeholder="Say something nice!">
+
+          <input type="submit" class="messenger-submit" value="Submit">
+
+      </form>
+      
+    </div>
+    <div id="chats">
+
+    </div>
+    <script>
+      $(function(){
+        app.init()
+      });
+    </script>
+  </body>
+</html>
+
+
+

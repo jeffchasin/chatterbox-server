@@ -1,0 +1,205 @@
+body {
+    background: rgb(236, 252, 231);
+    text-align: center;
+    padding: 0 25px;
+    font-family: 'Lato', sans-serif;
+    color: rgb(39, 39, 39);
+}
+
+#main, #chats {
+    width: 500px;
+    margin: auto;
+    text-align: left;
+    background: white;
+    padding: 20px 60px;
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+    overflow: hidden;
+    box-shadow: 0 35px 45px #0d520c2d;
+}
+
+.logo {
+    display: inline-block;
+    margin-top: 10px;
+    width: 110px;
+}
+.header-wrapper{
+    background-color: #97F28A;   
+    height: 200px;
+    width: 620px;
+    margin: auto;
+    padding-bottom: 10px;
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+    box-shadow: 0 35px 45px #0d520c2d;
+}
+
+.h1-wrapper {
+   
+    color: white;
+    border: solid #ddd;
+    border-width: 0 1px 1px 1px;
+    box-shadow: 0 35px 45px #0d520c2d;
+    
+    
+}
+
+h1 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 70px;
+    font-weight: 700;
+    color:  rgb(255, 236, 110);
+    letter-spacing: 3px;
+    font-family: 'Lobster Two', sans-serif;
+    -webkit-text-stroke: 1px rgb(252, 196, 13);
+    display: inline-block;
+}
+
+#main h1 span {
+    font-style:italic;
+}
+#main h2{
+    display: inline-block;
+    margin-right: 10px;
+
+}
+
+h3{
+    padding: 0;
+    margin: 0;
+}
+
+h4{
+    padding: 0;
+    margin: 5px;
+    font-size: 14px;
+}
+.messenger-form{
+    display: block;
+}
+
+
+#main ul {
+    padding-left: 20px;
+}
+
+#main .error {
+    border: 1px solid red;
+    background: #FDEFF0;
+    padding: 20px;
+}
+
+#main .success {
+    margin-top: 25px;
+}
+
+#main .success code {
+    font-size: 12px;
+    color: green;
+    line-height: 13px;
+}
+
+form {
+    padding: 10px;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+
+/* ROOM STUFF */
+
+#add-room input[type=text]{
+    padding: 6px;
+    border-radius: 3px;
+    border: 1px solid rgb(190, 190, 190);
+}
+
+#add-room {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#add-room-input{
+    width: 100px !important;
+}
+
+input #add-room-button{
+    display: inline-block;
+}
+
+#roomSelect {
+    padding: 10px;
+    height: 29px;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 3px;
+}
+
+/* FORM */
+
+
+form input[type=text] {
+    margin-right: 10px;
+    width: 70%;
+    font-size: 12px;
+    padding: 10px;
+    border: 1px solid rgb(56, 182, 39); 
+    border-radius: 7px;
+}
+
+input[type=submit]{
+    background-color: rgb(56, 182, 39); 
+    border: none;
+    padding: 7px 12px;
+    color: white;
+    border-radius: 3px;
+}
+
+/* DATA */
+
+.chat{
+    border: 1px solid rgb(195, 195, 195);
+    padding: 15px 5px;
+    margin: 10px 0;
+    border-radius: 3px;
+}
+
+
+
+/* .chat:hover {
+    background-color: rgb(251, 255, 250);
+} */
+
+.username {
+    font-weight: 600;
+    cursor: pointer;
+    margin: 5px 0px 5px 5px;
+}
+
+.message {
+   margin: 5px 5px 5px 2px;
+}
+
+.spinner {
+    float: right;
+    height: 46px;
+    margin-bottom: 5px;
+}
+
+.spinner img {
+    padding: 10px;
+}
+
+#friend-list{
+    min-height: 75px;
+    border: 1px solid rgb(211, 211, 211);
+    
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.friend {
+    color: white;
+    background-color: rgb(56, 182, 39); 
+   
+}
