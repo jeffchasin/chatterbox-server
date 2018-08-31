@@ -1,5 +1,5 @@
 
-const uuidv4 = require('uuid/v4');
+// const uuidv4 = require('uuid/v4');
 const fs = require('fs');
 
 /*************************************************************
@@ -86,9 +86,9 @@ var requestHandler = function(request, response) {
 
       }).on('end', () => {
 
-        var parsedData = JSON.parse(rawData);
+        // var parsedData = JSON.parse(rawData);
 
-        parsedData.objectId = uuidv4();
+        // parsedData.objectId = uuidv4();
         
         var messageFile = fs.readFileSync(__dirname + '/messages.txt', 'utf8');
 
